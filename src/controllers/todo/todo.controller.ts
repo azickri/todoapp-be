@@ -62,10 +62,10 @@ export class TodoController {
   @ApiOkResponse({ type: ResponseSuccessAddTodo })
   @UseGuards(UserGuard)
   addTodo(
-    @Body() { title, backgroundColor, lists }: BodyAddTodoDto,
+    @Body() { title, backgroundColor, items }: BodyAddTodoDto,
     @Req() { user }: { user: User },
   ) {
-    return this.todoService.addTodo({ title, backgroundColor, lists }, user);
+    return this.todoService.addTodo({ title, backgroundColor, items }, user);
   }
 
   @Put(':id')

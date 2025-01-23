@@ -49,7 +49,7 @@ class Doc {
   __v: number;
 
   @ApiProperty({ type: [List] })
-  lists: List[];
+  items: List[];
 }
 
 export class ResponseSuccessGetTodo {
@@ -107,7 +107,7 @@ export class ResponseSuccessAddTodo {
   __v: number;
 
   @ApiProperty({ type: [List] })
-  lists: List[];
+  items: List[];
 }
 
 export class ResponseSuccessGetOneTodo {
@@ -133,7 +133,7 @@ export class ResponseSuccessGetOneTodo {
   __v: number;
 
   @ApiProperty({ type: [List] })
-  lists: List[];
+  items: List[];
 }
 
 export class ResponseNotFoundTodo {

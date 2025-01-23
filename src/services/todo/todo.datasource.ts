@@ -9,15 +9,15 @@ import {
   ParamGetTodo,
 } from './todo.type';
 import { User } from '../auth/auth.type';
-import { TodoListDocument, TodoListModel } from '@/models/todo-list.model';
+import { TodoItemDocument, TodoItemModel } from '@/models/todo-item';
 
 @Injectable()
 export class TodoDatasource {
   constructor(
     @InjectModel(TodoModel.name)
     private todoModel: Model<TodoDocument> & PaginateModel<TodoDocument>,
-    @InjectModel(TodoListModel.name)
-    private todoListModel: Model<TodoListDocument>,
+    @InjectModel(TodoItemModel.name)
+    private todoItemModel: Model<TodoItemDocument>,
   ) {}
 
   async get(param: ParamGetTodo, user: User) {
@@ -33,7 +33,7 @@ export class TodoDatasource {
 
     for (const doc of request.docs) {
       const promise = new Promise(async (resolve) => {
-        const lists = await this.todoListModel.find({
+        const lists = await this.todoItemModel.find({
           todoId: doc._id,
           userId: doc.userId,
         });
@@ -63,7 +63,7 @@ export class TodoDatasource {
 
     if (!todo) return;
 
-    const lists = await this.todoListModel.find({
+    const lists = await this.todoItemModel.find({
       todoId: todo._id,
       userId: user._id,
     });
@@ -79,7 +79,7 @@ export class TodoDatasource {
   }
 
   async createList(datas: DataCreateTodoList[]) {
-    return await this.todoListModel.insertMany(datas);
+    return await this.todoItemModel.insertMany(datas);
   }
 
   async update(id: string, data: DataUpdateTodo) {
@@ -91,6 +91,6 @@ export class TodoDatasource {
 
   async deleteById(id: string) {
     await this.todoModel.deleteOne({ _id: new Types.ObjectId(id) });
-    await this.todoListModel.deleteMany({ todoId: new Types.ObjectId(id) });
+    await this.todoItemModel.deleteMany({ todoId: new Types.ObjectId(id) });
   }
 }

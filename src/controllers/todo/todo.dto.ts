@@ -25,7 +25,7 @@ export class ParamIdDto {
   id: string;
 }
 
-class TodoList {
+class TodoItem {
   @ApiProperty({ type: Boolean })
   isCompleted: boolean;
 
@@ -47,8 +47,8 @@ export class BodyAddTodoDto {
   @IsNotEmpty()
   @IsArray()
   @ArrayMinSize(1)
-  @ApiProperty({ type: [TodoList] })
-  lists: TodoList[];
+  @ApiProperty({ type: [TodoItem] })
+  items: TodoItem[];
 }
 
 export class BodyUpdateTodoDto {

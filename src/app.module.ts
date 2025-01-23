@@ -7,10 +7,10 @@ import { UserModel, UserSchema } from './models/user.model';
 import { AuthService } from './services/auth/auth.service';
 import { AuthDatasource } from './services/auth/auth.datasource';
 import { TodoModel, TodoSchema } from './models/todo.model';
-import { TodoListModel, TodoListSchema } from './models/todo-list.model';
 import { TodoController } from './controllers/todo/todo.controller';
 import { TodoService } from './services/todo/todo.service';
 import { TodoDatasource } from './services/todo/todo.datasource';
+import { TodoItemModel, TodoItemSchema } from './models/todo-item';
 
 @Module({
   imports: [
@@ -29,8 +29,8 @@ import { TodoDatasource } from './services/todo/todo.datasource';
         },
       },
       {
-        name: TodoListModel.name,
-        useFactory: () => TodoListSchema,
+        name: TodoItemModel.name,
+        useFactory: () => TodoItemSchema,
       },
     ]),
   ],

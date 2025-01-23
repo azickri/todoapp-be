@@ -32,7 +32,7 @@ export class TodoService {
     };
     const newTodo = await this.todoDatasource.create(setDataTodo);
 
-    const setDataTodoLists: DataCreateTodoList[] = param.lists.map((list) => ({
+    const setDataTodoLists: DataCreateTodoList[] = param.items.map((list) => ({
       isCompleted: list.isCompleted,
       value: list.value,
       todoId: StringHelper.toObjectId(newTodo._id),
@@ -45,7 +45,7 @@ export class TodoService {
     return {
       _id: newTodo._id,
       ...setDataTodo,
-      lists: newTodoLists,
+      items: newTodoLists,
     };
   }
 

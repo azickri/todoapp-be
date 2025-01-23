@@ -8,7 +8,7 @@ export type ParamGetTodo = {
 export type ParamAddTodo = {
   title: string;
   backgroundColor: string;
-  lists: {
+  items: {
     isCompleted: boolean;
     value: string;
   }[];
