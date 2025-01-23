@@ -62,3 +62,30 @@ export class BodyUpdateTodoDto {
   @ApiProperty({ type: String })
   backgroundColor: string;
 }
+
+export class BodyAddTodoItemDto {
+  @ApiProperty({ type: [TodoItem] })
+  items: TodoItem[];
+}
+
+export class BodyUpdateTodoItemDto {
+  @IsNotEmpty()
+  @ApiProperty({ type: Boolean })
+  isCompleted: boolean;
+
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  value: string;
+}
+
+export class ParamIdAndItemIdDto {
+  @MinLength(24)
+  @MaxLength(24)
+  @ApiProperty({ type: String })
+  id: string;
+
+  @MinLength(24)
+  @MaxLength(24)
+  @ApiProperty({ type: String })
+  itemId: string;
+}

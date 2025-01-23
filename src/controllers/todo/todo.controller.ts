@@ -19,7 +19,10 @@ import {
 } from '@nestjs/swagger';
 import {
   BodyAddTodoDto,
+  BodyAddTodoItemDto,
   BodyUpdateTodoDto,
+  BodyUpdateTodoItemDto,
+  ParamIdAndItemIdDto,
   ParamIdDto,
   QueryGetTodoDto,
 } from './todo.dto';
@@ -68,9 +71,22 @@ export class TodoController {
     return this.todoService.addTodo({ title, backgroundColor, items }, user);
   }
 
+  @Post(':id/item')
+  @ApiHeader({ name: 'token' })
+  @ApiOkResponse({ type: null, description: 'No Response' })
+  @ApiNotFoundResponse({ type: ResponseNotFoundTodo })
+  @UseGuards(UserGuard)
+  addTodoItem(
+    @Param() { id }: ParamIdDto,
+    @Body() { items }: BodyAddTodoItemDto,
+    @Req() { user }: { user: User },
+  ) {
+    return this.todoService.addTodoItem({ id, items }, user);
+  }
+
   @Put(':id')
   @ApiHeader({ name: 'token' })
-  @ApiOkResponse({ type: null })
+  @ApiOkResponse({ type: null, description: 'No Response' })
   @ApiNotFoundResponse({ type: ResponseNotFoundTodo })
   @UseGuards(UserGuard)
   updateTodo(
@@ -81,12 +97,39 @@ export class TodoController {
     return this.todoService.updateTodo({ id, title, backgroundColor }, user);
   }
 
+  @Put(':id/item/:itemId')
+  @ApiHeader({ name: 'token' })
+  @ApiNotFoundResponse({ type: ResponseNotFoundTodo })
+  @UseGuards(UserGuard)
+  updateTodoItem(
+    @Param() { id, itemId }: ParamIdAndItemIdDto,
+    @Body() { isCompleted, value }: BodyUpdateTodoItemDto,
+    @Req() { user }: { user: User },
+  ) {
+    return this.todoService.updateTodoItem(
+      { id, itemId, isCompleted, value },
+      user,
+    );
+  }
+
   @Delete(':id')
   @ApiHeader({ name: 'token' })
-  @ApiOkResponse({ type: null })
+  @ApiOkResponse({ type: null, description: 'No Response' })
   @ApiNotFoundResponse({ type: ResponseNotFoundTodo })
   @UseGuards(UserGuard)
   deleteTodo(@Param() { id }: ParamIdDto, @Req() { user }: { user: User }) {
     return this.todoService.deleteTodo(id, user);
+  }
+
+  @Delete(':id/item/:itemId')
+  @ApiHeader({ name: 'token' })
+  @ApiOkResponse({ type: null, description: 'No Response' })
+  @ApiNotFoundResponse({ type: ResponseNotFoundTodo })
+  @UseGuards(UserGuard)
+  deleteTodoItem(
+    @Param() { id, itemId }: ParamIdAndItemIdDto,
+    @Req() { user }: { user: User },
+  ) {
+    return this.todoService.deleteTodoItem(id, itemId, user);
   }
 }

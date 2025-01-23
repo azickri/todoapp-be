@@ -6,6 +6,7 @@ import {
   DataCreateTodo,
   DataCreateTodoList,
   DataUpdateTodo,
+  DataUpdateTodoItem,
   ParamGetTodo,
 } from './todo.type';
 import { User } from '../auth/auth.type';
@@ -55,6 +56,13 @@ export class TodoDatasource {
     });
   }
 
+  async getItemById(id: string, user: User) {
+    return await this.todoItemModel.findOne({
+      _id: new Types.ObjectId(id),
+      userId: user._id,
+    });
+  }
+
   async getOne(id: string, user: User) {
     const todo = await this.todoModel.findOne({
       _id: new Types.ObjectId(id),
@@ -78,7 +86,7 @@ export class TodoDatasource {
     return await this.todoModel.create(data);
   }
 
-  async createList(datas: DataCreateTodoList[]) {
+  async createItems(datas: DataCreateTodoList[]) {
     return await this.todoItemModel.insertMany(datas);
   }
 
@@ -89,8 +97,19 @@ export class TodoDatasource {
     );
   }
 
+  async updateTodoItem(id: string, data: DataUpdateTodoItem) {
+    await this.todoItemModel.updateOne(
+      { _id: new Types.ObjectId(id) },
+      { $set: data },
+    );
+  }
+
   async deleteById(id: string) {
     await this.todoModel.deleteOne({ _id: new Types.ObjectId(id) });
     await this.todoItemModel.deleteMany({ todoId: new Types.ObjectId(id) });
+  }
+
+  async deleteItemById(id: string) {
+    await this.todoItemModel.deleteOne({ _id: new Types.ObjectId(id) });
   }
 }

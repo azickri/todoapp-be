@@ -14,10 +14,25 @@ export type ParamAddTodo = {
   }[];
 };
 
+export type ParamAddTodoItem = {
+  id: string;
+  items: {
+    isCompleted: boolean;
+    value: string;
+  }[];
+};
+
 export type ParamUpdateTodo = {
   id: string;
   title: string;
   backgroundColor: string;
+};
+
+export type ParamUpdateTodoItem = {
+  id: string;
+  itemId: string;
+  isCompleted: boolean;
+  value: string;
 };
 
 export type DataCreateTodo = {
@@ -40,5 +55,11 @@ export type DataCreateTodoList = {
 export type DataUpdateTodo = {
   title: string;
   backgroundColor: string;
+  updatedAt: Date;
+};
+
+export type DataUpdateTodoItem = {
+  isCompleted: boolean;
+  value: string;
   updatedAt: Date;
 };
