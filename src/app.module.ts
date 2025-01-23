@@ -9,6 +9,8 @@ import { AuthDatasource } from './services/auth/auth.datasource';
 import { TodoModel, TodoSchema } from './models/todo.model';
 import { TodoListModel, TodoListSchema } from './models/todo-list.model';
 import { TodoController } from './controllers/todo/todo.controller';
+import { TodoService } from './services/todo/todo.service';
+import { TodoDatasource } from './services/todo/todo.datasource';
 
 @Module({
   imports: [
@@ -33,6 +35,6 @@ import { TodoController } from './controllers/todo/todo.controller';
     ]),
   ],
   controllers: [AuthController, TodoController],
-  providers: [AuthService, AuthDatasource],
+  providers: [AuthService, TodoService, AuthDatasource, TodoDatasource],
 })
 export class AppModule {}

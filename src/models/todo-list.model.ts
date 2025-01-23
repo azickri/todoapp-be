@@ -5,6 +5,9 @@ export type TodoListDocument = TodoListModel & Document;
 
 @Schema({ collection: 'todo-lists' })
 export class TodoListModel {
+  @Prop({ type: Boolean })
+  isCompleted: boolean;
+
   @Prop({ type: String })
   value: string;
 
@@ -22,3 +25,4 @@ export class TodoListModel {
 }
 
 export const TodoListSchema = SchemaFactory.createForClass(TodoListModel);
+TodoListSchema.index({ todoId: 1, userId: 1 });
